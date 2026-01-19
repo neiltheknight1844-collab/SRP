@@ -1,0 +1,25 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="srpproto"
+version="${file.jarVersion}"
+displayName="SRP Proto"
+description='''
+Minimal playable prototype inspired by parasite-style mechanics.
+'''
+
+[[dependencies.srpproto]]
+modId="forge"
+mandatory=true
+versionRange="[47.4.10,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.srpproto]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.21)"
+ordering="NONE"
+side="BOTH"
