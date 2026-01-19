@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = SRPProto.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class ModEntities {
+public final class ModEntities {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SRPProto.MODID);
@@ -23,6 +23,8 @@ public class ModEntities {
                     () -> EntityType.Builder.of(ParasiteEntity::new, MobCategory.MONSTER)
                             .sized(0.9F, 2.0F)
                             .build("parasite"));
+
+    private ModEntities() {}
 
     public static void register(IEventBus bus) {
         ENTITIES.register(bus);
