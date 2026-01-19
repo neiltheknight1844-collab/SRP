@@ -1,6 +1,5 @@
 package com.example.srpproto.entity;
 
-import com.example.srpproto.registry.ModSounds;
 import com.example.srpproto.registry.SrpCreatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -37,6 +36,7 @@ public class SrpBasicMob extends Monster {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2D, true));
         this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1.0D));
+
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
@@ -54,24 +54,10 @@ public class SrpBasicMob extends Monster {
         return MobType.UNDEFINED;
     }
 
-    // Safe: fallback sounds if something goes wrong
-    @Override
-    protected SoundEvent getAmbientSound() {
-        var ro = ModSounds.getKey(def.sndAmbient());
-        return (ro != null && ro.isPresent()) ? ro.get() : SoundEvents.SILVERFISH_AMBIENT;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        var ro = ModSounds.getKey(def.sndHurt());
-        return (ro != null && ro.isPresent()) ? ro.get() : SoundEvents.SILVERFISH_HURT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        var ro = ModSounds.getKey(def.sndDeath());
-        return (ro != null && ro.isPresent()) ? ro.get() : SoundEvents.SILVERFISH_DEATH;
-    }
+    // Placeholder sounds for now (we’ll wire SRP sounds per-creature after roster is stable)
+    @Override protected SoundEvent getAmbientSound() { return SoundEvents.SILVERFISH_AMBIENT; }
+    @Override protected SoundEvent getHurtSound(DamageSource src) { return SoundEvents.SILVERFISH_HURT; }
+    @Override protected SoundEvent getDeathSound() { return SoundEvents.SILVERFISH_DEATH; }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
