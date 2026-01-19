@@ -9,20 +9,24 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public final class ModSounds {
+
     public static final DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, SRPProto.MODID);
 
-    public static final RegistryObject<SoundEvent> INFECTEDHUMAN_DEATH =
-            SOUNDS.register("infectedhuman.death",
-                    () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SRPProto.MODID, "infectedhuman.death")));
-
     public static final RegistryObject<SoundEvent> INFECTEDHUMAN_GROWL =
-            SOUNDS.register("infectedhuman.growl",
-                    () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SRPProto.MODID, "infectedhuman.growl")));
+            register("infectedhuman.growl");
 
     public static final RegistryObject<SoundEvent> INFECTEDHUMAN_HURT =
-            SOUNDS.register("infectedhuman.hurt",
-                    () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(SRPProto.MODID, "infectedhuman.hurt")));
+            register("infectedhuman.hurt");
+
+    public static final RegistryObject<SoundEvent> INFECTEDHUMAN_DEATH =
+            register("infectedhuman.death");
+
+    private static RegistryObject<SoundEvent> register(String name) {
+        return SOUNDS.register(name,
+                () -> SoundEvent.createVariableRangeEvent(
+                        new ResourceLocation(SRPProto.MODID, name)));
+    }
 
     private ModSounds() {}
 
