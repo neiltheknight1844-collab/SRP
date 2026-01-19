@@ -1,0 +1,22 @@
+{
+  "infectedhuman.death": {
+    "category": "hostile",
+    "sounds": [ "srpproto:assimilatedhumandeath" ]
+  },
+  "infectedhuman.growl": {
+    "category": "hostile",
+    "sounds": [
+      "srpproto:assimilatedhumanliving1",
+      "srpproto:assimilatedhumanliving2",
+      "srpproto:assimilatedhumanliving3"
+    ]
+  },
+  "infectedhuman.hurt": {
+    "category": "hostile",
+    "sounds": [
+      "srpproto:assimilatedhumanhurt1",
+      "srpproto:assimilatedhumanhurt2",
+      "srpproto:assimilatedhumanhurt3"
+    ]
+  }
+}
