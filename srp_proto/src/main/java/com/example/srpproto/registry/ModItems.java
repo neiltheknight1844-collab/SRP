@@ -3,7 +3,7 @@ package com.example.srpproto.registry;
 import com.example.srpproto.SRPProto;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -12,20 +12,30 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Mod.EventBusSubscriber(modid = SRPProto.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class ModItems {
 
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, SRPProto.MODID);
 
-    public static final RegistryObject<Item> PARASITE_SPAWN_EGG =
-            ITEMS.register("parasite_spawn_egg",
-                    () -> new ForgeSpawnEggItem(
-                            ModEntities.PARASITE,   // NOTE: no .get() here!
-                            0x2b2b2b,
-                            0x8b0000,
+    public static final Map<String, RegistryObject<Item>> SPAWN_EGGS = new LinkedHashMap<>();
+
+    static {
+        // spawn egg per creature
+        for (var def : SrpCreatures.ALL) {
+            var id = def.id();
+            SPAWN_EGGS.put(id, ITEMS.register(id + "_spawn_egg", () ->
+                    new SpawnEggItem(
+                            ModEntities.CREATURES.get(id).get(), // safe here: used during registration
+                            def.eggPrimary(),
+                            def.eggSecondary(),
                             new Item.Properties()
-                    ));
+                    )));
+        }
+    }
 
     private ModItems() {}
 
@@ -36,7 +46,9 @@ public final class ModItems {
     @SubscribeEvent
     public static void onBuildCreativeTab(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(PARASITE_SPAWN_EGG.get());
+            for (var ro : SPAWN_EGGS.values()) {
+                event.accept(ro.get());
+            }
         }
     }
 }
