@@ -14,6 +14,8 @@ public final class ClientModEvents {
 
     @SubscribeEvent
     public static void onRegisterRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.PARASITE.get(), ParasiteRenderer::new);
+        for (var ro : ModEntities.CREATURES.values()) {
+            event.registerEntityRenderer(ro.get(), SrpBasicMobRenderer::new);
+        }
     }
 }
