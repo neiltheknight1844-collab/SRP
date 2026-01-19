@@ -34,7 +34,6 @@ public class ParasiteEntity extends Monster {
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
-    /** Attributes for registration in EntityAttributeCreationEvent */
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
@@ -50,33 +49,37 @@ public class ParasiteEntity extends Monster {
 
     /* -----------------------------
      * Sounds (Human Infected)
+     * SAFE: never crashes
      * ----------------------------- */
 
     @Override
     protected SoundEvent getAmbientSound() {
-        // Human Infected growls (your registered sound event)
-        return ModSounds.INFECTEDHUMAN_GROWL.get();
+        return ModSounds.INFECTEDHUMAN_GROWL.isPresent()
+                ? ModSounds.INFECTEDHUMAN_GROWL.get()
+                : SoundEvents.SILVERFISH_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.INFECTEDHUMAN_HURT.get();
+        return ModSounds.INFECTEDHUMAN_HURT.isPresent()
+                ? ModSounds.INFECTEDHUMAN_HURT.get()
+                : SoundEvents.SILVERFISH_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.INFECTEDHUMAN_DEATH.get();
+        return ModSounds.INFECTEDHUMAN_DEATH.isPresent()
+                ? ModSounds.INFECTEDHUMAN_DEATH.get()
+                : SoundEvents.SILVERFISH_DEATH;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        // If you later add a custom step sound, swap this out.
         this.playSound(SoundEvents.SILVERFISH_STEP, 0.15F, 1.0F);
     }
 
     @Override
     public int getAmbientSoundInterval() {
-        // How often the ambient growl triggers (in ticks). 80 = ~4 seconds.
         return 80;
     }
 }
