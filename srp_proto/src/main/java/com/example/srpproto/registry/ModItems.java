@@ -3,7 +3,7 @@ package com.example.srpproto.registry;
 import com.example.srpproto.SRPProto;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,8 +20,8 @@ public final class ModItems {
 
     public static final RegistryObject<Item> PARASITE_SPAWN_EGG =
             ITEMS.register("parasite_spawn_egg",
-                    () -> new SpawnEggItem(
-                            ModEntities.PARASITE.get(),
+                    () -> new ForgeSpawnEggItem(
+                            ModEntities.PARASITE,   // NOTE: no .get() here!
                             0x2b2b2b,
                             0x8b0000,
                             new Item.Properties()
