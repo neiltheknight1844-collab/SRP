@@ -20,14 +20,12 @@ jobs:
           java-version: "17"
           cache: "gradle"
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Build
-        run: ./gradlew build --no-daemon
+      - name: Build with Gradle (project subfolder)
+        working-directory: srp_proto_min_playable_1.20.1_forge47.4.10
+        run: gradle build --no-daemon
 
       - name: Upload built jars
         uses: actions/upload-artifact@v4
         with:
           name: built-jars
-          path: build/libs/*.jar
+          path: srp_proto_min_playable_1.20.1_forge47.4.10/build/libs/*.jar
