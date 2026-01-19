@@ -4,7 +4,6 @@ import com.example.srpproto.SRPProto;
 import com.example.srpproto.entity.ParasiteEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,23 +12,24 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+@Mod.EventBusSubscriber(modid = SRPProto.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntities {
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SRPProto.MODID);
 
-    public static final RegistryObject<EntityType<ParasiteEntity>> PARASITE = ENTITIES.register(
-            "parasite",
-            () -> EntityType.Builder.of(ParasiteEntity::new, MobCategory.MONSTER)
-                    .sized(0.9F, 2.0F)
-                    .clientTrackingRange(8)
-                    .build("parasite")
-    );
+    public static final DeferredRegister<EntityType<?>> ENTITIES =
+            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SRPProto.MODID);
 
-    public static void registerAttributes(IEventBus modBus) {
-        modBus.addListener(ModEntities::onAttributes);
+    public static final RegistryObject<EntityType<ParasiteEntity>> PARASITE =
+            ENTITIES.register("parasite",
+                    () -> EntityType.Builder.of(ParasiteEntity::new, MobCategory.MONSTER)
+                            .sized(0.9F, 2.0F)
+                            .build("parasite"));
+
+    public static void register(IEventBus bus) {
+        ENTITIES.register(bus);
     }
 
-    private static void onAttributes(EntityAttributeCreationEvent event) {
-        AttributeSupplier supplier = ParasiteEntity.createAttributes().build();
-        event.put(PARASITE.get(), supplier);
+    @SubscribeEvent
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(PARASITE.get(), ParasiteEntity.createAttributes().build());
     }
 }
