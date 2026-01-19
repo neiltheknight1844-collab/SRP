@@ -1,20 +1,20 @@
 package com.example.srpproto.client;
 
 import com.example.srpproto.entity.ParasiteEntity;
-import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-public class ParasiteRenderer extends MobRenderer<ParasiteEntity, ZombieModel<ParasiteEntity>> {
+public class ParasiteRenderer extends HumanoidMobRenderer<ParasiteEntity, HumanoidModel<ParasiteEntity>> {
 
-    // Use vanilla zombie texture so you don't need to add a texture asset yet.
+    // Vanilla zombie texture so you don't need assets yet.
     private static final ResourceLocation TEX =
             new ResourceLocation("minecraft", "textures/entity/zombie/zombie.png");
 
     public ParasiteRenderer(EntityRendererProvider.Context ctx) {
-        super(ctx, new ZombieModel<>(ctx.bakeLayer(ModelLayers.ZOMBIE)), 0.5F);
+        super(ctx, new HumanoidModel<>(ctx.bakeLayer(ModelLayers.PLAYER)), 0.5F);
     }
 
     @Override
