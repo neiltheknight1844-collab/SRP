@@ -12,7 +12,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = SRPProto.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -21,7 +21,8 @@ public final class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SRPProto.MODID);
 
-    public static final Map<String, RegistryObject<EntityType<SrpBasicMob>>> CREATURES = new HashMap<>();
+    // id -> entity type
+    public static final Map<String, RegistryObject<EntityType<SrpBasicMob>>> CREATURES = new LinkedHashMap<>();
 
     static {
         for (var def : SrpCreatures.ALL) {
