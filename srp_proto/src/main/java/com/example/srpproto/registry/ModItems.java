@@ -24,12 +24,13 @@ public final class ModItems {
     public static final Map<String, RegistryObject<Item>> SPAWN_EGGS = new LinkedHashMap<>();
 
     static {
-        // spawn egg per creature
         for (var def : SrpCreatures.ALL) {
             var id = def.id();
+            var ent = ModEntities.CREATURES.get(id);
+
             SPAWN_EGGS.put(id, ITEMS.register(id + "_spawn_egg", () ->
                     new SpawnEggItem(
-                            ModEntities.CREATURES.get(id).get(), // safe here: used during registration
+                            ent.get(),
                             def.eggPrimary(),
                             def.eggSecondary(),
                             new Item.Properties()
