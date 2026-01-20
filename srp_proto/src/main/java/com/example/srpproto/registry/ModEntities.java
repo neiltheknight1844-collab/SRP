@@ -21,7 +21,6 @@ public final class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, SRPProto.MODID);
 
-    // id -> entity type
     public static final Map<String, RegistryObject<EntityType<SrpBasicMob>>> CREATURES = new LinkedHashMap<>();
 
     static {
