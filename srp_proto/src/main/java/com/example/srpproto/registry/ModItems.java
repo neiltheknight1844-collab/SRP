@@ -3,7 +3,7 @@ package com.example.srpproto.registry;
 import com.example.srpproto.SRPProto;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,12 +25,13 @@ public final class ModItems {
 
     static {
         for (var def : SrpCreatures.ALL) {
-            var id = def.id();
-            var ent = ModEntities.CREATURES.get(id);
+            String id = def.id();
 
+            // IMPORTANT: ForgeSpawnEggItem takes a Supplier<EntityType<?>>
+            // so we NEVER call RegistryObject.get() during static init.
             SPAWN_EGGS.put(id, ITEMS.register(id + "_spawn_egg", () ->
-                    new SpawnEggItem(
-                            ent.get(),
+                    new ForgeSpawnEggItem(
+                            () -> ModEntities.CREATURES.get(id).get(),
                             def.eggPrimary(),
                             def.eggSecondary(),
                             new Item.Properties()
